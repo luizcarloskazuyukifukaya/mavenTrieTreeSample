@@ -11,12 +11,16 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author kazuyuf
  */
 public class Trie {
+    private static final Logger logger = Logger.getLogger(Trie.class.getName());
+
     private final TrieNode root;
     ArrayList<String> words; 
     TrieNode prefixRoot;
@@ -27,7 +31,9 @@ public class Trie {
         root = new TrieNode();
         words  = new ArrayList<>();
     }    
-    // Inserts a word into the trie.
+    /**
+     * Inserts a word into the trie.
+     */
     public void insert(String word) 
     {
         HashMap<Character, TrieNode> children = root.children;
@@ -59,15 +65,19 @@ public class Trie {
                 t.isLeaf = true;    
         }
     }
-    // Returns if the word is in the trie.
+    /**
+     * Returns if the word is in the trie.
+     */
     public boolean search(String word)
     {
         TrieNode t = searchNode(word);
         return t != null && t.isLeaf;
     }
 
-    // Returns if there is any word in the trie
-    // that starts with the given prefix.
+    /**
+     * @return Returns if there is any word in the trie that starts with the given prefix.
+     * @param prefix
+     */
     public boolean startsWith(String prefix) 
     {
         return searchNode(prefix) != null;
@@ -92,14 +102,11 @@ public class Trie {
         words.clear();
         return t;
     }
-  void wordsFinderTraversal(TrieNode node, int offset) 
-  {
-        //print(node, offset);
-        //System.out.println("wordsFinderTraversal >>> IN");
+
+    void wordsFinderTraversal(TrieNode node, int offset) 
+    {
         if(node.isLeaf==true)
         {
-          //System.out.println("leaf node found");
-
           TrieNode altair;
           altair = node;
 
@@ -117,14 +124,10 @@ public class Trie {
           {
             wrd = wrd + hstack.pop();
           }
-
-          //System.out.println(wrd);
           words.add(wrd);
-
         }
 
          Set<Character> kset = node.children.keySet();
-         //System.out.println(node.c); System.out.println(node.isLeaf);System.out.println(kset);
          Iterator itr = kset.iterator();
          ArrayList<Character> aloc = new ArrayList<>();
 
@@ -132,7 +135,6 @@ public class Trie {
         {
          Character ch = (Character)itr.next();  
          aloc.add(ch);
-         //System.out.println(ch);
         } 
         // here you can play with the order of the children
 
@@ -140,8 +142,6 @@ public class Trie {
         {
          wordsFinderTraversal(node.children.get(aloc.get(i)), offset + 2);
         } 
-        //System.out.println("wordsFinderTraversal <<< OUT");
-
     }
   
     /**
@@ -149,12 +149,12 @@ public class Trie {
      */
     void displayFoundWords()
     {
-        System.out.println("_______________");
+        logger.log(Level.INFO, "---------------------------------");
         for(int i=0;i<words.size();i++)
         {
-            System.out.println(words.get(i));
+            logger.log(Level.INFO, "{0}", words.get(i));
         } 
-        System.out.println("________________");
+        logger.log(Level.INFO, "---------------------------------");
     }
 
     /**
@@ -166,7 +166,7 @@ public class Trie {
         if (depth > 0) {
             ArrayList<String> foundWords = getAllWords(depth);
             for(int i=0;i<foundWords.size();i++) {
-                System.out.println(foundWords.get(i));                            
+                logger.log(Level.INFO, "{0}", foundWords.get(i));
             }
         } 
     }
@@ -180,12 +180,11 @@ public class Trie {
     {
         final ArrayList<String> shortWords;
         shortWords = new ArrayList<>(); 
-        System.out.println("displayFoundWords called depth=" + depth);
-        System.out.println("_______________");
+        logger.log(Level.INFO, "displayFoundWords called depth={0}", depth);
+        logger.log(Level.INFO, "---------------------------------");
         for(int i=0;i<words.size();i++)
         {
             String shortWord = words.get(i).substring(0, Math.min(words.get(i).length(), depth));
-            //System.out.println(shortWord);
             if(shortWords.isEmpty()) {
                 shortWords.add(shortWord);
             } else {
@@ -195,9 +194,9 @@ public class Trie {
             }
         } 
         for(int j=0; j<shortWords.size(); j++) {
-            System.out.println(shortWords.get(j));            
+            logger.log(Level.INFO, "{0}", shortWords.get(j));
         }
-        System.out.println("________________");
+        logger.log(Level.INFO, "---------------------------------");
 
         return shortWords;
     }
@@ -210,5 +209,4 @@ public class Trie {
     {
         return words;
     }
-    
 }
