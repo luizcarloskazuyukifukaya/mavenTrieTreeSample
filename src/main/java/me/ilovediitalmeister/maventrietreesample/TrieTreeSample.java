@@ -17,7 +17,7 @@ public class TrieTreeSample {
     public static void main(String[] args) {
         Trie prefixTree;
 
-        prefixTree = new Trie();  
+        prefixTree = new Trie();
 
         prefixTree.insert("GOING");
         prefixTree.insert("GONG");
@@ -27,28 +27,29 @@ public class TrieTreeSample {
         prefixTree.insert("GODAY");
         prefixTree.insert("GODZILLA");
 
+
         if( prefixTree.startsWith("GO")==true)
         {
           TrieNode tn = prefixTree.searchNode("GO");
           prefixTree.wordsFinderTraversal(tn,0);
           prefixTree.displayFoundWords();
           prefixTree.displayFoundWords(1);
-          prefixTree.displayFoundWords(2);          
-          prefixTree.displayFoundWords(3);          
-          prefixTree.displayFoundWords(4);          
-          prefixTree.displayFoundWords(5);          
+          prefixTree.displayFoundWords(2);
+          prefixTree.displayFoundWords(3);
+          prefixTree.displayFoundWords(4);
+          prefixTree.displayFoundWords(5);
         }
 
         if( prefixTree.startsWith("GOD")==true)
         {
           TrieNode tn = prefixTree.searchNode("GOD");
           prefixTree.wordsFinderTraversal(tn,0);
-          prefixTree.displayFoundWords(); 
+          prefixTree.displayFoundWords();
           prefixTree.displayFoundWords(1);
-          prefixTree.displayFoundWords(2);          
-          prefixTree.displayFoundWords(3);          
-          prefixTree.displayFoundWords(4);          
-          prefixTree.displayFoundWords(5);          
-        }        
-    }    
+          prefixTree.displayFoundWords(2);
+          prefixTree.displayFoundWords(3);
+          prefixTree.displayFoundWords(4);
+          prefixTree.displayFoundWords(5);
+        }
+    }
 }
